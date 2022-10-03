@@ -459,52 +459,45 @@ fun ArtistCard(
 fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
-        topBar = {
-            HomeScreenTopAppBar()
-        }
+    LazyColumn(
+        modifier = modifier
+            .background(MaterialTheme.colors.background)
+            .fillMaxSize()
     ) {
-        LazyColumn(
-            modifier = modifier
-                .background(MaterialTheme.colors.background)
-                .fillMaxSize()
-        ) {
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                RecentPlaylistMiniCardGrid()
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(20.dp))
-                PlaylistList(title = R.string.made_for_you)
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                RecentlyPlayedList()
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                SpotifyOriginalList()
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                AlbumList(title = R.string.recomended_for_today)
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                PlaylistList(title = R.string.indias_best)
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(10.dp))
-                ArtistList(title = R.string.suggested_artists)
-            }
+        item {
+            Spacer(modifier = Modifier.height(10.dp))
+            RecentPlaylistMiniCardGrid()
         }
 
+        item {
+            Spacer(modifier = Modifier.height(20.dp))
+            PlaylistList(title = R.string.made_for_you)
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(10.dp))
+            RecentlyPlayedList()
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(10.dp))
+            SpotifyOriginalList()
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(10.dp))
+            AlbumList(title = R.string.recomended_for_today)
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(10.dp))
+            PlaylistList(title = R.string.indias_best)
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(10.dp))
+            ArtistList(title = R.string.suggested_artists)
+        }
     }
 }
 

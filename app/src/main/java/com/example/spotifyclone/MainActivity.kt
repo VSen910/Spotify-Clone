@@ -5,12 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.spotifyclone.ui.HomeScreen
+import com.example.spotifyclone.ui.HomeScreenTopAppBar
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +25,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen()
+                    Scaffold(
+                        topBar = {
+                            HomeScreenTopAppBar()
+                        }
+                    ) {
+                        HomeScreen()
+                    }
                 }
             }
         }
