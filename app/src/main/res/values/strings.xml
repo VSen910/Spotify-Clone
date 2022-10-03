@@ -11,4 +11,8 @@
     <string name="recomended_for_today">Recommended for today</string>
     <string name="indias_best">India\'s Best</string>
     <string name="suggested_artists">Suggested artists</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="your_library">Your library</string>
+    <string name="premium">Premium</string>
 </resources>
