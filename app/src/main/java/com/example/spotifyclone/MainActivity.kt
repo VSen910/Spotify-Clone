@@ -38,16 +38,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Scaffold(
-                        topBar = {
-                            HomeScreenTopAppBar()
-                        },
-                        bottomBar = {
-                            BottomAppBar()
-                        }
-                    ) {
-                        HomeScreen()
-                    }
+                    PremiumPage()
                 }
             }
         }
