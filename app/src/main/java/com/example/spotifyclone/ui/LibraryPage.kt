@@ -27,20 +27,24 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.spotifyclone.R
+import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.HomeScreen
 import com.example.spotifyclone.ui.HomeScreenTopAppBar
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
 
 @Composable
-fun Lib(){
+fun Lib(
+    navController: NavController
+){
     Scaffold(
         topBar = {
             LibraryScreenTopAppBar()
         },
         bottomBar = {
-            LibBottomAppBar()
+            LibBottomAppBar(navController)
         }
     ) {
         LibraryScreen()
@@ -223,14 +227,9 @@ fun Chip(
 
 @Composable
 fun LibBottomAppBar(
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
-//    Card(
-//        modifier = modifier
-//            .background(Color(0x00FFFFFF))
-//            .fillMaxWidth()
-//    ) {
-//    }
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier
@@ -240,7 +239,7 @@ fun LibBottomAppBar(
 
                     drawRect(
                         Brush.verticalGradient(
-                            0.01f to Color.Black.copy(0.9f),
+                            0.01f to Color.Black.copy(0.5f),
                             1F to Color.Black
                         )
                     )
@@ -251,25 +250,34 @@ fun LibBottomAppBar(
         BottomAppBarIcons(
             tabText = R.string.home,
             imageVector = Icons.Outlined.Home,
-            color = Color.Gray
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Home.route)
+            }
         )
         BottomAppBarIcons(
             tabText = R.string.search,
             imageVector = Icons.Outlined.Search,
-            color = Color.Gray
-
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Search.route)
+            }
         )
         BottomAppBarIcons(
             tabText = R.string.your_library,
             imageVector = Icons.Filled.LibraryBooks,
-            color = Color.White
-
+            color = Color.White,
+            onClick = {
+                navController.navigate(route = Screens.Library.route)
+            }
         )
         BottomAppBarIcons(
             tabText = R.string.premium,
             imageVector = Icons.Outlined.CompassCalibration,
-            color = Color.Gray
-
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Premium.route)
+            }
         )
     }
 }
@@ -279,6 +287,7 @@ fun BottomAppBarIcons(
     @StringRes tabText: Int,
     imageVector: ImageVector,
     color: Color,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -286,14 +295,19 @@ fun BottomAppBarIcons(
         modifier = modifier
             .padding(8.dp)
     ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = null,
+        IconButton(
+            onClick = onClick,
             modifier = Modifier
-                .size(25.dp)
-                .padding(0.dp),
-            tint = color
-        )
+                .size(50.dp)
+        ) {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(25.dp)
+                    .padding(0.dp)
+            )
+        }
         Text(
             text = stringResource(id = tabText),
             style = MaterialTheme.typography.body1,

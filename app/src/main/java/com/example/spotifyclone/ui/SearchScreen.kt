@@ -1,5 +1,6 @@
 package com.example.spotifyclone.ui
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -9,21 +10,139 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LibraryBooks
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.CompassCalibration
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.LibraryBooks
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.spotifyclone.R
 import com.example.spotifyclone.data.SearchCards
 import com.example.spotifyclone.data.SearchGenres.SearchGenres.genres
+import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
+
+@Composable
+fun Search(
+    navController: NavController
+) {
+    Scaffold(
+        topBar = {
+            SearchScreenTopAppBar()
+        },
+        bottomBar = {
+            SearchBottomAppBar(navController)
+        }
+    ) {
+        SearchScreen()
+    }
+}
+
+@Composable
+fun SearchBottomAppBar(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier
+            .fillMaxWidth()
+            .drawWithCache {
+                onDrawWithContent {
+
+                    drawRect(
+                        Brush.verticalGradient(
+                            0.01f to Color.Black.copy(0.5f),
+                            1F to Color.Black
+                        )
+                    )
+                    drawContent()
+                }
+            }
+    ) {
+        SearchBottomAppBarIcons(
+            tabText = R.string.home,
+            imageVector = Icons.Outlined.Home,
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Home.route)
+            }
+        )
+        SearchBottomAppBarIcons(
+            tabText = R.string.search,
+            imageVector = Icons.Filled.Search,
+            color = Color.White,
+            onClick = {
+                navController.navigate(route = Screens.Search.route)
+            }
+        )
+        SearchBottomAppBarIcons(
+            tabText = R.string.your_library,
+            imageVector = Icons.Outlined.LibraryBooks,
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Library.route)
+            }
+        )
+        SearchBottomAppBarIcons(
+            tabText = R.string.premium,
+            imageVector = Icons.Outlined.CompassCalibration,
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Premium.route)
+            }
+        )
+    }
+}
+
+@Composable
+fun SearchBottomAppBarIcons(
+    @StringRes tabText: Int,
+    imageVector: ImageVector,
+    color: Color,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .padding(8.dp)
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .size(50.dp)
+        ) {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(25.dp)
+                    .padding(0.dp)
+            )
+        }
+        Text(
+            text = stringResource(id = tabText),
+            style = MaterialTheme.typography.body1,
+            color = color,
+            fontSize = 12.sp
+        )
+    }
+}
 
 @Composable
 fun SearchScreenTopAppBar(
@@ -139,12 +258,6 @@ fun GenreCard(
 @Composable
 fun SearchScreenPreview() {
     SpotifyCloneTheme {
-        Scaffold(
-            topBar = {
-                SearchScreenTopAppBar()
-            }
-        ) {
-            SearchScreen()
-        }
+        SearchScreen()
     }
 }

@@ -9,21 +9,133 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.spotifyclone.R
 import com.example.spotifyclone.data.recentPlaylist
+import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
+
+
+@Composable
+fun Home(
+    navController: NavController
+){
+    Scaffold(
+        topBar = {
+            HomeScreenTopAppBar()
+        },
+        bottomBar = {
+            HomeScreenBottomAppBar(navController)
+        }
+    ) {
+        HomeScreen()
+    }
+}
+
+@Composable
+fun HomeScreenBottomAppBar(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier
+            .fillMaxWidth()
+            .drawWithCache {
+                onDrawWithContent {
+                    drawRect(
+                        Brush.verticalGradient(
+                            0.01f to Color.Black.copy(alpha = 0.5F),
+                            1F to Color.Black
+                        )
+                    )
+                    drawContent()
+                }
+            }
+    ) {
+        HomeBottomAppBarIcons(
+            tabText = R.string.home,
+            color = Color.White,
+            imageVector = Icons.Filled.Home,
+            onClick = {
+                navController.navigate(route = Screens.Home.route)
+            }
+        )
+        HomeBottomAppBarIcons(
+            tabText = R.string.search,
+            color = Color.Gray,
+            imageVector = Icons.Outlined.Search,
+            onClick = {
+                navController.navigate(route = Screens.Search.route)
+            }
+        )
+        HomeBottomAppBarIcons(
+            tabText = R.string.your_library,
+            color = Color.Gray,
+            imageVector = Icons.Outlined.LibraryBooks,
+            onClick = {
+                navController.navigate(route = Screens.Library.route)
+            }
+        )
+        HomeBottomAppBarIcons(
+            tabText = R.string.premium,
+            color = Color.Gray,
+            imageVector = Icons.Outlined.CompassCalibration,
+            onClick = {
+                navController.navigate(route = Screens.Premium.route)
+            }
+        )
+    }
+}
+
+@Composable
+fun HomeBottomAppBarIcons(
+    @StringRes tabText: Int,
+    imageVector: ImageVector,
+    color: Color,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .padding(8.dp)
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .size(50.dp)
+        ) {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(25.dp)
+                    .padding(0.dp)
+            )
+        }
+        Text(
+            text = stringResource(id = tabText),
+            style = MaterialTheme.typography.body1,
+            fontSize = 12.sp
+        )
+    }
+}
 
 @Composable
 fun HomeScreenTopAppBar(
