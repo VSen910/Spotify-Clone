@@ -17,5 +17,7 @@
     <string name="premium">Premium</string>
     <string name="byyou">By you</string>
     <string name="byspot">By Spotify</string>
+    <string name="search_text">What do you want to listen to?</string>
+    <string name="browse_all">Browse all</string>
 
 </resources>
