@@ -12,6 +12,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CompassCalibration
+import androidx.compose.material.icons.filled.LibraryBooks
 import androidx.compose.material.icons.outlined.CompassCalibration
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LibraryBooks
@@ -30,10 +32,116 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.HomeScreen
 import com.example.spotifyclone.ui.HomeScreenTopAppBar
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
+@Composable
+fun Premium(
+    navController: NavController
+){
+    Scaffold(
+        bottomBar = {
+            PremiumBottomAppBar(navController)
+        }
+    ) {
+        PremiumPage()
+    }
+}
+
+@Composable
+fun PremiumBottomAppBar(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier
+            .fillMaxWidth()
+            .drawWithCache {
+                onDrawWithContent {
+
+                    drawRect(
+                        Brush.verticalGradient(
+                            0.01f to Color.Black.copy(0.5f),
+                            1F to Color.Black
+                        )
+                    )
+                    drawContent()
+                }
+            }
+    ) {
+        PremiumBottomAppBarIcons(
+            tabText = R.string.home,
+            imageVector = Icons.Outlined.Home,
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Home.route)
+            }
+        )
+        PremiumBottomAppBarIcons(
+            tabText = R.string.search,
+            imageVector = Icons.Outlined.Search,
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Search.route)
+            }
+        )
+        PremiumBottomAppBarIcons(
+            tabText = R.string.your_library,
+            imageVector = Icons.Outlined.LibraryBooks,
+            color = Color.Gray,
+            onClick = {
+                navController.navigate(route = Screens.Library.route)
+            }
+        )
+        PremiumBottomAppBarIcons(
+            tabText = R.string.premium,
+            imageVector = Icons.Filled.CompassCalibration,
+            color = Color.White,
+            onClick = {
+                navController.navigate(route = Screens.Premium.route)
+            }
+        )
+    }
+}
+
+@Composable
+fun PremiumBottomAppBarIcons(
+    @StringRes tabText: Int,
+    imageVector: ImageVector,
+    color: Color,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .padding(8.dp)
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .size(50.dp)
+        ) {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(25.dp)
+                    .padding(0.dp)
+            )
+        }
+        Text(
+            text = stringResource(id = tabText),
+            style = MaterialTheme.typography.body1,
+            color = color,
+            fontSize = 12.sp
+        )
+    }
+}
 
 @Composable
 fun PremiumPage() {
