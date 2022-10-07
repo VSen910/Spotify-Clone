@@ -124,6 +124,7 @@ fun HomeBottomAppBarIcons(
             Icon(
                 imageVector = imageVector,
                 contentDescription = null,
+                tint = color,
                 modifier = Modifier
                     .size(25.dp)
                     .padding(0.dp)
