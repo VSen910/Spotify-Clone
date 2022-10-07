@@ -15,4 +15,8 @@
     <string name="search">Search</string>
     <string name="your_library">Your library</string>
     <string name="premium">Premium</string>
+    <string name="byyou">By you</string>
+    <string name="byspot">By Spotify</string>
+
+
 </resources>

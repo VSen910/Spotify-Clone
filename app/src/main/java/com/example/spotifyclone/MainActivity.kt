@@ -8,6 +8,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.LibraryBooks
 import androidx.compose.material.icons.outlined.CompassCalibration
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LibraryBooks
@@ -26,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.spotifyclone.ui.HomeScreen
 import com.example.spotifyclone.ui.HomeScreenTopAppBar
+import com.example.spotifyclone.ui.theme.Lib
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,19 +41,24 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Scaffold(
-                        topBar = {
-                            HomeScreenTopAppBar()
-                        },
-                        bottomBar = {
-                            BottomAppBar()
-                        }
-                    ) {
-                        HomeScreen()
-                    }
+                    Lib()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun Home(){
+    Scaffold(
+        topBar = {
+            HomeScreenTopAppBar()
+        },
+        bottomBar = {
+            BottomAppBar()
+        }
+    ) {
+        HomeScreen()
     }
 }
 
@@ -70,9 +78,10 @@ fun BottomAppBar(
             .fillMaxWidth()
             .drawWithCache {
                 onDrawWithContent {
+
                     drawRect(
                         Brush.verticalGradient(
-                            0.01f to Color.Black.copy(alpha = 0.0F),
+                            0.01f to Color.Black.copy(0.9f),
                             1F to Color.Black
                         )
                     )
@@ -80,21 +89,28 @@ fun BottomAppBar(
                 }
             }
     ) {
-        BottomAppBarIcons(
+        com.example.spotifyclone.ui.theme.BottomAppBarIcons(
             tabText = R.string.home,
-            imageVector = Icons.Outlined.Home
+            imageVector = Icons.Outlined.Home,
+            color = Color.Gray
         )
-        BottomAppBarIcons(
+        com.example.spotifyclone.ui.theme.BottomAppBarIcons(
             tabText = R.string.search,
-            imageVector = Icons.Outlined.Search
+            imageVector = Icons.Outlined.Search,
+            color = Color.Gray
+
         )
-        BottomAppBarIcons(
+        com.example.spotifyclone.ui.theme.BottomAppBarIcons(
             tabText = R.string.your_library,
-            imageVector = Icons.Outlined.LibraryBooks
+            imageVector = Icons.Filled.LibraryBooks,
+            color = Color.White
+
         )
-        BottomAppBarIcons(
+        com.example.spotifyclone.ui.theme.BottomAppBarIcons(
             tabText = R.string.premium,
-            imageVector = Icons.Outlined.CompassCalibration
+            imageVector = Icons.Outlined.CompassCalibration,
+            color = Color.Gray
+
         )
     }
 }
@@ -103,6 +119,7 @@ fun BottomAppBar(
 fun BottomAppBarIcons(
     @StringRes tabText: Int,
     imageVector: ImageVector,
+    color: Color,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -115,11 +132,13 @@ fun BottomAppBarIcons(
             contentDescription = null,
             modifier = Modifier
                 .size(25.dp)
-                .padding(0.dp)
+                .padding(0.dp),
+            tint = color
         )
         Text(
             text = stringResource(id = tabText),
             style = MaterialTheme.typography.body1,
+            color = color,
             fontSize = 12.sp
         )
     }
