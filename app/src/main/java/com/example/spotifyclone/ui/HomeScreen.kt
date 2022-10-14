@@ -1,6 +1,7 @@
 package com.example.spotifyclone.ui
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +19,9 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.spotifyclone.R
-import com.example.spotifyclone.data.recentPlaylist
+import com.example.spotifyclone.data.RecentPlaylist
+import com.example.spotifyclone.data.RecentPlaylistItems.RecentPlaylistItems.recentPlaylist
 import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
@@ -251,7 +255,7 @@ fun RecentPlaylistMiniCardGrid(
 @Composable
 fun RecentPlaylistMiniCard(
     modifier: Modifier = Modifier,
-    playlistName: String
+    playlistName: RecentPlaylist
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
@@ -265,14 +269,21 @@ fun RecentPlaylistMiniCard(
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
+//            Box(
+//                modifier = Modifier
+//                    .background(Color.White)
+//                    .size(55.dp)
+//                    .aspectRatio(1f)
+//            )
+            Image(
+                painter = painterResource(id = playlistName.image),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .background(Color.White)
                     .size(55.dp)
-                    .aspectRatio(1f)
             )
             Text(
-                text = playlistName,
+                text = playlistName.title,
                 style = MaterialTheme.typography.body1,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
