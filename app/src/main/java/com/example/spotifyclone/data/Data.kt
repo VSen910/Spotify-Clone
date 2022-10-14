@@ -11,6 +11,19 @@ val recentPlaylist = listOf<String>(
     "F1 22 (Original Game Soundtrack)"
 )
 
+class RecentPlaylistItems {
+    object RecentPlaylistItems {
+        val recentPlaylist = listOf<RecentPlaylist>(
+            RecentPlaylist(R.drawable.likedsongs, "Liked Songs"),
+            RecentPlaylist(R.drawable.bollywoodbutter, "Bollywood Butter"),
+            RecentPlaylist(R.drawable.relaxhits, "Relax Hits"),
+            RecentPlaylist(R.drawable.indiemix, "Indie Mix"),
+            RecentPlaylist(R.drawable.dailymix1, "Daily Mix 1"),
+            RecentPlaylist(R.drawable.beastmode, "Beast Mode")
+        )
+    }
+}
+
 class SearchGenres {
     object SearchGenres {
         val genres = listOf(
