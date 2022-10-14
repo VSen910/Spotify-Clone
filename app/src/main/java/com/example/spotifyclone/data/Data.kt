@@ -2,24 +2,66 @@ package com.example.spotifyclone.data
 
 import com.example.spotifyclone.R
 
-val recentPlaylist = listOf<String>(
-    "The Mythpat Podcast",
-    "Man of the Moon",
-    "Liked Songs",
-    "Punjabi 101",
-    "Daily Mix 1",
-    "F1 22 (Original Game Soundtrack)"
-)
-
 class RecentPlaylistItems {
     object RecentPlaylistItems {
-        val recentPlaylist = listOf<RecentPlaylist>(
-            RecentPlaylist(R.drawable.likedsongs, "Liked Songs"),
-            RecentPlaylist(R.drawable.bollywoodbutter, "Bollywood Butter"),
-            RecentPlaylist(R.drawable.relaxhits, "Relax Hits"),
-            RecentPlaylist(R.drawable.indiemix, "Indie Mix"),
-            RecentPlaylist(R.drawable.dailymix1, "Daily Mix 1"),
-            RecentPlaylist(R.drawable.beastmode, "Beast Mode")
+        val playlists = listOf<Playlist>(
+            Playlist(R.drawable.likedsongs, "Liked Songs"),
+            Playlist(R.drawable.bollywoodbutter, "Bollywood Butter"),
+            Playlist(R.drawable.relaxhits, "Relax Hits"),
+            Playlist(R.drawable.indiemix, "Indie Mix"),
+            Playlist(R.drawable.dailymix1, "Daily Mix 1"),
+            Playlist(R.drawable.beastmode, "Beast Mode")
+        )
+    }
+}
+
+class MadeForYouItems {
+    object MadeForYouItems {
+        val madeForYou = listOf<Playlist>(
+            Playlist(R.drawable.dailymix1, "Bad Computer, Conro, Slushii and more"),
+            Playlist(R.drawable.chillhits, "Rouge Haven, Leo Lind, Golden Horses, Sun of The People"),
+            Playlist(R.drawable.popmix, "Brian Tyler, Christopher Lennertz, Jeremy Soule and more"),
+            Playlist(R.drawable.dailymix1, "Bad Computer, Conro, Slushii and more"),
+            Playlist(R.drawable.chillhits, "Rouge Haven, Leo Lind, Golden Horses, Sun of The People"),
+            Playlist(R.drawable.popmix, "Brian Tyler, Christopher Lennertz, Jeremy Soule and more"),
+        )
+    }
+}
+
+class IndiasBestItems {
+    object IndiasBestItems {
+        val indiasBest = listOf(
+            Playlist(R.drawable.relaxhits, "Guru Randhawa, Arijit Singh, Pritam, A.R. Rahman, Shreya Ghoshal"),
+            Playlist(R.drawable.edmsampling, "Dua Lipa, David Guetta, J Balvin, Pritam, Yo Yo Honey Singh, Lil Pump"),
+            Playlist(R.drawable.chilledhits, "Guru Randhawa, Anirudh Ravichander, Tanishk Bagchi, B Praak"),
+            Playlist(R.drawable.relaxhits, "Guru Randhawa, Arijit Singh, Pritam, A.R. Rahman, Shreya Ghoshal"),
+            Playlist(R.drawable.edmsampling, "Dua Lipa, David Guetta, J Balvin, Pritam, Yo Yo Honey Singh, Lil Pump"),
+            Playlist(R.drawable.chilledhits, "Guru Randhawa, Anirudh Ravichander, Tanishk Bagchi, B Praak"),
+        )
+    }
+}
+
+class RecentlyPlayedItems {
+    object RecentlyPlayedItems {
+        val recentlyPlayed = listOf(
+            Playlist(R.drawable.likedsongs, "Liked Songs"),
+            Playlist(R.drawable.bollywoodbutter, "Bollywood Butter"),
+            Playlist(R.drawable.relaxhits, "Relax Hits"),
+            Playlist(R.drawable.indiemix, "Indie Mix"),
+            Playlist(R.drawable.dailymix1, "Daily Mix 1"),
+            Playlist(R.drawable.beastmode, "Beast Mode")
+        )
+    }
+}
+
+class SuggestedArtistsItems {
+    object SuggestedArtistsItems {
+        val suggestedArtists = listOf(
+            Artist(R.drawable.justinbieber, "Justin Bieber"),
+            Artist(R.drawable.casper, "Casper"),
+            Artist(R.drawable.linda, "Linda"),
+            Artist(R.drawable.charlieputh, "Charlie Puth"),
+            Artist(R.drawable.shawnmendes, "Shawn Mendes")
         )
     }
 }

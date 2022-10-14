@@ -2,7 +2,7 @@ package com.example.spotifyclone.data
 
 import androidx.annotation.DrawableRes
 
-data class RecentPlaylist(
+data class Artist(
     @DrawableRes val image: Int,
-    val title: String
+    val name: String
 )
