@@ -17,12 +17,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.spotifyclone.LibBottomAppBar
+import com.example.spotifyclone.LibraryScreen
+import androidx.navigation.NavController
 import com.example.spotifyclone.R
+import com.example.spotifyclone.navigation.Screens
+import com.example.spotifyclone.ui.HomeScreen
+import com.example.spotifyclone.ui.HomeScreenTopAppBar
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
 @Composable
 fun SongListPage(
+    navController: NavController,
     modifier: Modifier = Modifier
+) { Scaffold(
+
+    bottomBar = {
+     HomeScreenBottomAppBar(navController)
+    }
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -38,6 +50,8 @@ fun SongListPage(
             SongListItem()
         }
     }
+}
+
 }
 
 @Composable
@@ -157,10 +171,3 @@ fun SongListItemText(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SongListPagePreview() {
-    SpotifyCloneTheme {
-        SongListPage()
-    }
-}

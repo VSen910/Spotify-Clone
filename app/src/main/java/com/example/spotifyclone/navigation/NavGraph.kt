@@ -30,6 +30,9 @@ fun NavGraph (navController: NavHostController){
         composable(route = Screens.Premium.route) {
             Premium(navController)
         }
+        composable(route = Screens.LikedSongs.route) {
+            Home(navController)
+        }
 
     }
 }

@@ -24,10 +24,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.spotifyclone.navigation.NavGraph
 import com.example.spotifyclone.ui.HomeScreen
 import com.example.spotifyclone.ui.HomeScreenTopAppBar
+import com.example.spotifyclone.ui.SongListPage
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,8 +42,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val navController = rememberNavController()
+                   val navController = rememberNavController()
                     NavGraph(navController = navController)
+
                 }
             }
         }
