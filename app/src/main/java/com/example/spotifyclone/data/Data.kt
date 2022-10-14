@@ -54,6 +54,18 @@ class RecentlyPlayedItems {
     }
 }
 
+class SuggestedArtistsItems {
+    object SuggestedArtistsItems {
+        val suggestedArtists = listOf(
+            Artist(R.drawable.justinbieber, "Justin Bieber"),
+            Artist(R.drawable.casper, "Casper"),
+            Artist(R.drawable.linda, "Linda"),
+            Artist(R.drawable.charlieputh, "Charlie Puth"),
+            Artist(R.drawable.shawnmendes, "Shawn Mendes")
+        )
+    }
+}
+
 class SearchGenres {
     object SearchGenres {
         val genres = listOf(

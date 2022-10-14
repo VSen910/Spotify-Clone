@@ -30,11 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.spotifyclone.R
+import com.example.spotifyclone.data.Artist
 import com.example.spotifyclone.data.IndiasBestItems.IndiasBestItems.indiasBest
 import com.example.spotifyclone.data.MadeForYouItems.MadeForYouItems.madeForYou
 import com.example.spotifyclone.data.Playlist
 import com.example.spotifyclone.data.RecentPlaylistItems.RecentPlaylistItems.playlists
 import com.example.spotifyclone.data.RecentlyPlayedItems.RecentlyPlayedItems.recentlyPlayed
+import com.example.spotifyclone.data.SuggestedArtistsItems.SuggestedArtistsItems.suggestedArtists
 import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
@@ -549,14 +551,14 @@ fun SpotifyOriginalCard(
 
 @Composable
 fun ArtistList(
-    @StringRes title: Int,
+    itemDataList: List<Artist>,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
     ) {
         Text(
-            text = stringResource(id = title),
+            text = stringResource(id = R.string.suggested_artists),
             style = MaterialTheme.typography.h2,
             modifier = Modifier
                 .padding(18.dp)
@@ -566,8 +568,8 @@ fun ArtistList(
             modifier = Modifier
                 .padding(12.dp)
         ) {
-            items(count = 6) {
-                ArtistCard()
+            items(itemDataList) {
+                ArtistCard(it)
             }
         }
     }
@@ -575,6 +577,7 @@ fun ArtistList(
 
 @Composable
 fun ArtistCard(
+    itemData: Artist,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -588,10 +591,13 @@ fun ArtistCard(
             modifier = Modifier
                 .size(170.dp)
         ) {
-
+            Image(
+                painter = painterResource(id = itemData.image),
+                contentDescription = null
+            )
         }
         Text(
-            text = "Toto Wolff",
+            text = itemData.name,
             style = MaterialTheme.typography.body1,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
@@ -646,7 +652,7 @@ fun HomeScreen(
 
         item {
             Spacer(modifier = Modifier.height(10.dp))
-            ArtistList(title = R.string.suggested_artists)
+            ArtistList(itemDataList = suggestedArtists)
         }
     }
 }
