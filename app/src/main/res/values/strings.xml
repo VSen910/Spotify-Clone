@@ -19,5 +19,6 @@
     <string name="byspot">By Spotify</string>
     <string name="search_text">What do you want to listen to?</string>
     <string name="browse_all">Browse all</string>
+    <string name="go_back">Go Back</string>
 
 </resources>
