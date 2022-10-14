@@ -41,3 +41,11 @@ class SearchGenres {
         )
     }
 }
+
+class Songs {
+    object songs{
+        val songList = listOf<SongsCard>(
+
+        )
+    }
+}
