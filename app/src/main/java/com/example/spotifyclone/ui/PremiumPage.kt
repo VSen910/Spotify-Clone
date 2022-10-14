@@ -150,7 +150,7 @@ fun PremiumBottomAppBarIcons(
 fun PremiumPage() {
     Column(
         Modifier
-            .background(MaterialTheme.colors.background)
+            .background(color = Color.Black)
             .verticalScroll(state = ScrollState(1))
 
     ) {
@@ -161,7 +161,7 @@ fun PremiumPage() {
 
             Column(
                 Modifier
-                    .background(MaterialTheme.colors.background)
+                    .background(color = Color.Black)
                     .fillMaxWidth()
             ) {
                 Image(
