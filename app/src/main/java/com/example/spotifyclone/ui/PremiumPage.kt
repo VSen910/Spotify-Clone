@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,6 +26,7 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -150,28 +152,41 @@ fun PremiumPage() {
         Modifier
             .background(MaterialTheme.colors.background)
             .verticalScroll(state = ScrollState(1))
-            .padding(start = 10.dp, end = 10.dp)
+
     ) {
-        Row() {
-            Icon(
-                imageVector = Icons.Outlined.CompassCalibration,
-                contentDescription = null,
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(text = "Premium")
+        Box(
+            modifier = Modifier.fillMaxWidth()
+                .fillMaxHeight()
+        ) {
+
+            Column(
+                Modifier
+                    .background(MaterialTheme.colors.background)
+                    .fillMaxWidth()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.screenshot_20221008_001416_436_2),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxWidth()
+                    )
+
+                Text(
+                    text = "FREE TRIAL",
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Try Premium free for 1 month",
+                    style = MaterialTheme.typography.h1,
+                    color = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier.padding(start = 10.dp, end = 10.dp)
+
+                )
+            }
         }
-        Spacer(modifier = Modifier.height(200.dp))
-        Text(
-            text = "FREE TRIAL",
-            style = MaterialTheme.typography.body1,
-            color = MaterialTheme.colors.primaryVariant
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = "Try Premium free for 1 month",
-            style = MaterialTheme.typography.h1,
-            color = MaterialTheme.colors.primaryVariant
-        )
         Button(
             onClick = { /*TODO*/ },
             shape = RoundedCornerShape(corner = CornerSize(20.dp)),
@@ -183,7 +198,9 @@ fun PremiumPage() {
             Text(
                 text = "GET PREMIUM",
                 style = MaterialTheme.typography.h3,
-                color = Color.Black
+                color = Color.Black,
+                modifier = Modifier.padding(start = 10.dp, end = 10.dp)
+
             )
         }
         Spacer(modifier = Modifier.height(30.dp))
