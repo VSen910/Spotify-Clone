@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -29,8 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.spotifyclone.R
-import com.example.spotifyclone.data.RecentPlaylist
-import com.example.spotifyclone.data.RecentPlaylistItems.RecentPlaylistItems.recentPlaylist
+import com.example.spotifyclone.data.IndiasBestItems.IndiasBestItems.indiasBest
+import com.example.spotifyclone.data.MadeForYouItems.MadeForYouItems.madeForYou
+import com.example.spotifyclone.data.Playlist
+import com.example.spotifyclone.data.RecentPlaylistItems.RecentPlaylistItems.playlists
+import com.example.spotifyclone.data.RecentlyPlayedItems.RecentlyPlayedItems.recentlyPlayed
 import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 
@@ -245,8 +249,8 @@ fun RecentPlaylistMiniCardGrid(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                RecentPlaylistMiniCard(playlistName = recentPlaylist[2*i])
-                RecentPlaylistMiniCard(playlistName = recentPlaylist[2*i+1])
+                RecentPlaylistMiniCard(playlistName = playlists[2*i])
+                RecentPlaylistMiniCard(playlistName = playlists[2*i+1])
             }
         }
     }
@@ -255,7 +259,7 @@ fun RecentPlaylistMiniCardGrid(
 @Composable
 fun RecentPlaylistMiniCard(
     modifier: Modifier = Modifier,
-    playlistName: RecentPlaylist
+    playlistName: Playlist
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
@@ -297,6 +301,7 @@ fun RecentPlaylistMiniCard(
 @Composable
 fun PlaylistList(
     @StringRes title: Int,
+    itemData: List<Playlist>,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -311,8 +316,8 @@ fun PlaylistList(
             modifier = Modifier
                 .padding(horizontal = 12.dp)
         ) {
-            items(count = 6) {
-                PlaylistCard()
+            items(itemData) {
+                PlaylistCard(itemData = it)
             }
         }
     }
@@ -320,6 +325,7 @@ fun PlaylistList(
 
 @Composable
 fun PlaylistCard(
+    itemData: Playlist,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -327,17 +333,23 @@ fun PlaylistCard(
         modifier = modifier
             .width(150.dp)
     ) {
-        Card {
-            Box(
-                modifier = Modifier
-                    .size(150.dp)
-                    .background(Color.White)
-            ) {
-
-            }
-        }
+//        Card {
+//            Box(
+//                modifier = Modifier
+//                    .size(150.dp)
+//                    .background(Color.White)
+//            ) {
+//
+//            }
+//        }
+        Image(
+            painter = painterResource(id = itemData.image),
+            contentDescription = null,
+            modifier = Modifier
+                .size(150.dp)
+        )
         Text(
-            text = stringResource(R.string.lorem_ipsum),
+            text = itemData.title,
             style = MaterialTheme.typography.body2,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
@@ -405,6 +417,7 @@ fun AlbumCard(
 
 @Composable
 fun RecentlyPlayedList(
+    itemDataList: List<Playlist> = recentlyPlayed,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -421,8 +434,8 @@ fun RecentlyPlayedList(
             modifier = modifier
                 .padding(12.dp)
         ) {
-            items(count = 6) {
-                RecentlyPlayedCard()
+            items(recentlyPlayed) {
+                RecentlyPlayedCard(itemData = it)
             }
         }
     }
@@ -430,6 +443,7 @@ fun RecentlyPlayedList(
 
 @Composable
 fun RecentlyPlayedCard(
+    itemData: Playlist,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -437,18 +451,24 @@ fun RecentlyPlayedCard(
         modifier = modifier
             .width(120.dp)
     ) {
-        Card(
+//        Card(
+//            modifier = Modifier
+//                .size(120.dp)
+//        ) {
+//            Box(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .background(Color.White)
+//            )
+//        }
+        Image(
+            painter = painterResource(id = itemData.image),
+            contentDescription = null,
             modifier = Modifier
                 .size(120.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.White)
-            )
-        }
+        )
         Text(
-            text = stringResource(id = R.string.lorem_ipsum),
+            text = itemData.title,
             style = MaterialTheme.typography.body1,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
@@ -595,7 +615,10 @@ fun HomeScreen(
 
         item {
             Spacer(modifier = Modifier.height(20.dp))
-            PlaylistList(title = R.string.made_for_you)
+            PlaylistList(
+                title = R.string.made_for_you,
+                itemData = madeForYou
+            )
         }
 
         item {
@@ -615,7 +638,10 @@ fun HomeScreen(
 
         item {
             Spacer(modifier = Modifier.height(10.dp))
-            PlaylistList(title = R.string.indias_best)
+            PlaylistList(
+                title = R.string.indias_best,
+                itemData = indiasBest
+            )
         }
 
         item {
