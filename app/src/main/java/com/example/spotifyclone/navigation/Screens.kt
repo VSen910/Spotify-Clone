@@ -7,4 +7,5 @@ sealed class Screens(
     object Search: Screens("SearchScreen")
     object Library: Screens("LibraryPage")
     object Premium: Screens("PremiumPage")
+    object LikedSongs: Screens("likedsongs")
 }

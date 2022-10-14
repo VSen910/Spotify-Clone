@@ -260,7 +260,7 @@ fun RecentPlaylistMiniCard(
         modifier = modifier
             .width(((screenWidth / 2) - 16).dp)
             .height(55.dp)
-            .padding(0.dp)
+            .padding(0.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
