@@ -161,7 +161,7 @@ fun LibraryScreenTopAppBar(
                 .background(MaterialTheme.colors.background)
         ) {
             Image(
-                painter = painterResource(R.drawable.ic_launcher_background),
+                painter = painterResource(R.drawable.charlieputh),
                 contentDescription = "avatar",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
