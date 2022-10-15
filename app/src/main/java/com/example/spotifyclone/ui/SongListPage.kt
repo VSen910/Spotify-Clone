@@ -1,8 +1,11 @@
 package com.example.spotifyclone.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,6 +25,9 @@ import com.example.spotifyclone.LibBottomAppBar
 import com.example.spotifyclone.LibraryScreen
 import androidx.navigation.NavController
 import com.example.spotifyclone.R
+import com.example.spotifyclone.data.Songs
+import com.example.spotifyclone.data.Songs.songs.songList
+import com.example.spotifyclone.data.SongsCard
 import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.HomeScreen
 import com.example.spotifyclone.ui.HomeScreenTopAppBar
@@ -29,33 +36,42 @@ import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 @Composable
 fun SongListPage(
     navController: NavController,
+    onClick: (SongsCard) -> Unit,
     modifier: Modifier = Modifier
-) { Scaffold(
-
-    bottomBar = {
-     HomeScreenBottomAppBar(navController)
-    }
 ) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier
-            .background(MaterialTheme.colors.background)
-            .fillMaxSize()
-    ) {
-        item {
-            TopInformation()
+    Scaffold(
+        bottomBar = {
+            HomeScreenBottomAppBar(navController)
         }
+    ) {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = modifier
+                .background(MaterialTheme.colors.background)
+                .fillMaxSize()
+        ) {
+            item {
+                TopInformation(navController = navController)
+            }
 
-        items(count = 10) {
-            SongListItem()
+            items(songList) {
+                SongListItem(
+                    itemData = it,
+                    onClick = onClick,
+                    navController = navController
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(80.dp))
+            }
         }
     }
-}
-
 }
 
 @Composable
 fun TopInformation(
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     val gradient = Brush.verticalGradient(
@@ -69,11 +85,15 @@ fun TopInformation(
             .fillMaxWidth()
             .padding(12.dp)
     ) {
-        Icon(
-            imageVector = Icons.Outlined.ArrowBack,
-            contentDescription = stringResource(R.string.go_back),
-            tint = MaterialTheme.colors.onSurface
-        )
+        IconButton(onClick = {
+            navController.popBackStack()
+        }) {
+            Icon(
+                imageVector = Icons.Outlined.ArrowBack,
+                contentDescription = stringResource(R.string.go_back),
+                tint = MaterialTheme.colors.onSurface
+            )
+        }
         Spacer(modifier = Modifier.height(40.dp))
         Text(
             text = "Liked Songs",
@@ -109,19 +129,24 @@ fun TopInformation(
 
 @Composable
 fun SongListItem(
+    navController: NavController,
+    itemData: SongsCard,
+    onClick: (SongsCard) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .padding(horizontal = 12.dp)
+            .clickable(onClick = { onClick(itemData) })
     ) {
-        Box(
+        Image(
+            painter = painterResource(id = itemData.image),
+            contentDescription = null,
             modifier = Modifier
                 .size(60.dp)
-                .background(Color.White)
         )
-        SongListItemText()
+        SongListItemText(itemData)
         Spacer(modifier = Modifier.weight(1f))
         Icon(
             imageVector = Icons.Filled.Favorite,
@@ -140,6 +165,7 @@ fun SongListItem(
 
 @Composable
 fun SongListItemText(
+    itemData: SongsCard,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -147,7 +173,7 @@ fun SongListItemText(
             .padding(8.dp)
     ) {
         Text(
-            text = "Lorem Ipsum",
+            text = itemData.title,
             style = MaterialTheme.typography.h3,
             color = MaterialTheme.colors.onSurface
         )
@@ -164,7 +190,7 @@ fun SongListItemText(
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
-                text = "Lorem Ipsum",
+                text = itemData.artist,
                 style = MaterialTheme.typography.body2
             )
         }
