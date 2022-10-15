@@ -100,7 +100,16 @@ class SearchGenres {
 class Songs {
     object songs{
         val songList = listOf<SongsCard>(
-
+            SongsCard(R.drawable.screenshot_2022_10_15_201745, "Pasoori", "Shae Gill, Ali Sethi"),
+            SongsCard(R.drawable.screenshot_2022_10_15_201816, "Signs", "Guru Randhawa"),
+            SongsCard(R.drawable.screenshot_2022_10_15_201842, "Life is a Highway", "Rascal Flatts"),
+            SongsCard(R.drawable.screenshot_2022_10_15_201914, "Downtown", "Guru Randhawa"),
+            SongsCard(R.drawable.screenshot_2022_10_15_201944, "Summer High", "AP Dhillon"),
+            SongsCard(R.drawable.screenshot_2022_10_15_202038, "F1 Theme Song", "Brian Tyler"),
+            SongsCard(R.drawable.screenshot_2022_10_15_202124, "Lahore", "Guru Randhawa"),
+            SongsCard(R.drawable.screenshot_2022_10_15_202403, "Flip Reset", "Kaskade, WILL K"),
+            SongsCard(R.drawable.screenshot_2022_10_15_202427, "All I Need", "Slushii, Aviella"),
+            SongsCard(R.drawable.screenshot_2022_10_15_202446, "Chasing Clouds", "Bad Computer, Danyka Nadeau")
         )
     }
 }

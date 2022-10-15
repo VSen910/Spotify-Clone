@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.spotifyclone.R
+import com.example.spotifyclone.data.SongUiState
 import com.example.spotifyclone.navigation.Screens
 import com.example.spotifyclone.ui.HomeScreen
 import com.example.spotifyclone.ui.HomeScreenTopAppBar
@@ -47,11 +48,15 @@ import com.example.spotifyclone.ui.theme.SpotifyCloneTheme
 @Composable
 fun Now(
     navController: NavController,
-){
+    songUiState: SongUiState
+) {
     Scaffold(
 
     ) {
-       NowPlaying(navController)
+       NowPlaying(
+           navController = navController,
+           uiState = songUiState
+       )
     }
 }
 
@@ -60,8 +65,8 @@ fun Now(
 
 @Composable
 fun NowPlaying(
-
-    navController: NavController
+    navController: NavController,
+    uiState: SongUiState
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -76,14 +81,19 @@ fun NowPlaying(
                 .padding(top = 10.dp, start = 10.dp, end = 10.dp)
                 .fillMaxWidth()
         ) {
-           IconButton(onClick = {
-               navController.popBackStack() },
-           Modifier.size(20.dp)) {
-               Icon(imageVector = Icons.Filled.KeyboardArrowDown, contentDescription = null,
-               Modifier.size(30.dp))
+           IconButton(
+               onClick = { navController.popBackStack() },
+               modifier = Modifier.size(20.dp)
+           ) {
+               Icon(
+                   imageVector = Icons.Filled.KeyboardArrowDown,
+                   contentDescription = null,
+                   modifier = Modifier.size(30.dp)
+               )
            }
-            Text(text = "Liked Songs",
-                 style = MaterialTheme.typography.h2,
+            Text(
+                text = "Liked Songs",
+                style = MaterialTheme.typography.h2,
             )
             Icon(imageVector = Icons.Filled.MoreVert, contentDescription =null )
         }
@@ -95,44 +105,48 @@ fun NowPlaying(
                 modifier = Modifier
                     .size(320.dp)
                     .background(Color.White)
-
-
             ) {
-
+                Image(
+                    painter = painterResource(id = uiState.image),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
             }
 
         }
         Spacer(modifier = Modifier.height(30.dp))
-       Row(
-           horizontalArrangement = Arrangement.SpaceBetween,
-           modifier = Modifier.fillMaxWidth()
-       ) {
-           Text(
-               text = stringResource(R.string.indias_best),
-               style = MaterialTheme.typography.h1,
-               modifier = Modifier
-                   .padding(start = 18.dp, top = 18.dp),
-               textAlign = TextAlign.Justify
-           )
-           Icon(
-               imageVector = Icons.Filled.Favorite,
-               contentDescription = null,
-               tint = MaterialTheme.colors.primary,
-               modifier = Modifier
-                   .padding(top = 25.dp, end = 20.dp)
-                   .size(30.dp)
-           )
-       }
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = uiState.title,
+                style = MaterialTheme.typography.h1,
+                modifier = Modifier
+                    .padding(start = 18.dp, top = 18.dp),
+                textAlign = TextAlign.Justify
+            )
+            Icon(
+                imageVector = Icons.Filled.Favorite,
+                contentDescription = null,
+                tint = MaterialTheme.colors.primary,
+                modifier = Modifier
+                    .padding(top = 25.dp, end = 20.dp)
+                    .size(30.dp)
+            )
+        }
         Spacer(modifier = Modifier.height(10.dp))
         Row(
             verticalAlignment = Alignment.Top,
             modifier = Modifier
-            
+
         ) {
             Spacer(modifier = Modifier.width(10.dp))
             Icon(imageVector = Icons.Filled.Book, contentDescription = null,)
             Text(
-                text = stringResource(R.string.indias_best),
+                text = uiState.artists,
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier
                     .padding(start = 8.dp),
@@ -211,9 +225,9 @@ fun NowPlaying(
         ) {
             Icon(imageVector = Icons.Filled.DesktopMac,
                  contentDescription =null,
-                 Modifier
-                     .size(35.dp)
-                     .padding(start = 8.dp)
+                Modifier
+                    .size(35.dp)
+                    .padding(start = 8.dp)
             )
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -223,16 +237,16 @@ fun NowPlaying(
                 ) {
                 Icon(imageVector = Icons.Filled.Share,
                      contentDescription =null,
-                     Modifier
-                         .size(35.dp)
-                         .padding(end = 10.dp)
+                    Modifier
+                        .size(35.dp)
+                        .padding(end = 10.dp)
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 Icon(imageVector = Icons.Filled.List,
                      contentDescription =null,
-                     Modifier
-                         .size(35.dp)
-                         .padding(end = 5.dp)
+                    Modifier
+                        .size(35.dp)
+                        .padding(end = 5.dp)
                 )
             }
 
