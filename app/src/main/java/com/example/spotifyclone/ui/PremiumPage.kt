@@ -679,7 +679,7 @@ fun PremiumPlans() {
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(90.dp))
     }
 }
 

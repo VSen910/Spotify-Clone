@@ -215,6 +215,10 @@ fun SearchScreen(
                 items(genres) { genre ->
                     GenreCard(genre = genre)
                 }
+
+                items(count = 2) {
+                    Spacer(modifier = Modifier.height(80.dp))
+                }
             },
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(25.dp),
