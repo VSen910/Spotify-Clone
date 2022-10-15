@@ -67,7 +67,7 @@ fun PremiumBottomAppBar(
 
                     drawRect(
                         Brush.verticalGradient(
-                            0.01f to Color.Black.copy(0.5f),
+                            0.01f to Color.Black.copy(0.8f),
                             1F to Color.Black
                         )
                     )

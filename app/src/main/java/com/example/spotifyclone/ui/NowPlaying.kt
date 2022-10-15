@@ -64,16 +64,16 @@ fun NowPlaying(
     navController: NavController
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.Center,
         modifier = Modifier
-            .width(150.dp)
+            .fillMaxWidth()
             .padding(all = 10.dp),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .padding(top = 10.dp)
+                .padding(top = 10.dp, start = 10.dp, end = 10.dp)
                 .fillMaxWidth()
         ) {
            IconButton(onClick = {
@@ -93,7 +93,7 @@ fun NowPlaying(
         ) {
             Box(
                 modifier = Modifier
-                    .size(300.dp)
+                    .size(320.dp)
                     .background(Color.White)
 
 
@@ -102,6 +102,7 @@ fun NowPlaying(
             }
 
         }
+        Spacer(modifier = Modifier.height(30.dp))
        Row(
            horizontalArrangement = Arrangement.SpaceBetween,
            modifier = Modifier.fillMaxWidth()
@@ -122,6 +123,7 @@ fun NowPlaying(
                    .size(30.dp)
            )
        }
+        Spacer(modifier = Modifier.height(10.dp))
         Row(
             verticalAlignment = Alignment.Top,
             modifier = Modifier
@@ -137,18 +139,22 @@ fun NowPlaying(
                 textAlign = TextAlign.Justify
             )
         }
-        Spacer(modifier = Modifier.height(5.dp))
-        Box() {
+        Spacer(modifier = Modifier.height(15.dp))
+        Box(
+            modifier = Modifier.padding(horizontal = 10.dp)
+        ) {
             Icon(imageVector = Icons.Filled.Circle, contentDescription =null )
             Divider(color = Color.White, modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp, start = 20.dp, end = 15.dp))
 
         }
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 10.dp)
         ) {
             Text(
                 text = "0:00",
@@ -166,11 +172,13 @@ fun NowPlaying(
                 color = Color.White.copy(0.6f)
             )
         }
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(imageVector = Icons.Filled.Shuffle,
@@ -194,15 +202,18 @@ fun NowPlaying(
                  Modifier.size(30.dp)
             )
         }
+        Spacer(modifier = Modifier.height(10.dp))
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Icon(imageVector = Icons.Filled.DesktopMac,
                  contentDescription =null,
                  Modifier
                      .size(35.dp)
-                     .padding(start = 10.dp)
+                     .padding(start = 8.dp)
             )
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -216,6 +227,7 @@ fun NowPlaying(
                          .size(35.dp)
                          .padding(end = 10.dp)
                 )
+                Spacer(modifier = Modifier.width(20.dp))
                 Icon(imageVector = Icons.Filled.List,
                      contentDescription =null,
                      Modifier

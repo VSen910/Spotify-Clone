@@ -11,6 +11,7 @@ import com.example.spotifyclone.Premium
 import com.example.spotifyclone.R
 import com.example.spotifyclone.ui.Home
 import com.example.spotifyclone.ui.Search
+import com.example.spotifyclone.ui.SongListPage
 
 @Composable
 fun NavGraph (navController: NavHostController){
@@ -31,7 +32,7 @@ fun NavGraph (navController: NavHostController){
             Premium(navController)
         }
         composable(route = Screens.LikedSongs.route) {
-            Home(navController)
+            SongListPage(navController)
         }
 
     }

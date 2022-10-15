@@ -3,6 +3,7 @@ package com.example.spotifyclone.ui
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -30,10 +31,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.spotifyclone.R
+import com.example.spotifyclone.data.Album
+import com.example.spotifyclone.data.AlbumList.AlbumlistItems.albums
 import com.example.spotifyclone.data.Artist
 import com.example.spotifyclone.data.IndiasBestItems.IndiasBestItems.indiasBest
 import com.example.spotifyclone.data.MadeForYouItems.MadeForYouItems.madeForYou
 import com.example.spotifyclone.data.Playlist
+import com.example.spotifyclone.data.Podcast
+import com.example.spotifyclone.data.PodcastList.PodcastlistItems.podcasts
 import com.example.spotifyclone.data.RecentPlaylistItems.RecentPlaylistItems.playlists
 import com.example.spotifyclone.data.RecentlyPlayedItems.RecentlyPlayedItems.recentlyPlayed
 import com.example.spotifyclone.data.SuggestedArtistsItems.SuggestedArtistsItems.suggestedArtists
@@ -53,7 +58,7 @@ fun Home(
             HomeScreenBottomAppBar(navController)
         }
     ) {
-        HomeScreen()
+        HomeScreen(navController)
     }
 }
 
@@ -70,7 +75,7 @@ fun HomeScreenBottomAppBar(
                 onDrawWithContent {
                     drawRect(
                         Brush.verticalGradient(
-                            0.01f to Color.Black.copy(alpha = 0.5F),
+                            0.01f to Color.Black.copy(alpha = 0.8F),
                             1F to Color.Black
                         )
                     )
@@ -238,12 +243,12 @@ fun Chip(
 
 @Composable
 fun RecentPlaylistMiniCardGrid(
-    modifier: Modifier = Modifier
+    navController: NavController
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
     ) {
@@ -251,8 +256,8 @@ fun RecentPlaylistMiniCardGrid(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                RecentPlaylistMiniCard(playlistName = playlists[2*i])
-                RecentPlaylistMiniCard(playlistName = playlists[2*i+1])
+                RecentPlaylistMiniCard(playlistName = playlists[2*i],navController)
+                RecentPlaylistMiniCard(playlistName = playlists[2*i+1],navController)
             }
         }
     }
@@ -260,27 +265,25 @@ fun RecentPlaylistMiniCardGrid(
 
 @Composable
 fun RecentPlaylistMiniCard(
-    modifier: Modifier = Modifier,
-    playlistName: Playlist
+    playlistName: Playlist,
+    navController: NavController
 ) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
 
     Card(
-        modifier = modifier
+        modifier = Modifier
             .width(((screenWidth / 2) - 16).dp)
             .height(55.dp)
-            .padding(0.dp),
+            .padding(0.dp)
+            .clickable {
+                navController.navigate(Screens.LikedSongs.route)
+            }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-//            Box(
-//                modifier = Modifier
-//                    .background(Color.White)
-//                    .size(55.dp)
-//                    .aspectRatio(1f)
-//            )
+
             Image(
                 painter = painterResource(id = playlistName.image),
                 contentDescription = null,
@@ -299,6 +302,7 @@ fun RecentPlaylistMiniCard(
         }
     }
 }
+
 
 @Composable
 fun PlaylistList(
@@ -363,7 +367,8 @@ fun PlaylistCard(
 @Composable
 fun AlbumList(
     @StringRes title: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    itemDataList: List<Album> = albums
 ) {
     Column(modifier = modifier) {
         Text(
@@ -377,8 +382,8 @@ fun AlbumList(
             modifier = Modifier
                 .padding(horizontal = 12.dp)
         ) {
-            items(count = 6) {
-                AlbumCard()
+            items(albums) {
+                AlbumCard(it)
             }
         }
     }
@@ -386,6 +391,7 @@ fun AlbumList(
 
 @Composable
 fun AlbumCard(
+    itemData: Album,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -393,23 +399,21 @@ fun AlbumCard(
         modifier = modifier
             .width(150.dp)
     ) {
-        Card {
-            Box(
-                modifier = Modifier
-                    .size(150.dp)
-                    .background(Color.White)
-            ) {
-
-            }
+        Card(
+            modifier = Modifier.size(150.dp)
+        ) {
+           Image(
+               painter = painterResource(id = itemData.image) ,
+               contentDescription =null )
         }
         Text(
-            text = stringResource(R.string.lorem_ipsum),
+            text = itemData.title,
             style = MaterialTheme.typography.body1,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
         Text(
-            text = stringResource(R.string.lorem_ipsum),
+            text = itemData.artists,
             style = MaterialTheme.typography.body2,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
@@ -453,16 +457,7 @@ fun RecentlyPlayedCard(
         modifier = modifier
             .width(120.dp)
     ) {
-//        Card(
-//            modifier = Modifier
-//                .size(120.dp)
-//        ) {
-//            Box(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .background(Color.White)
-//            )
-//        }
+
         Image(
             painter = painterResource(id = itemData.image),
             contentDescription = null,
@@ -480,6 +475,7 @@ fun RecentlyPlayedCard(
 
 @Composable
 fun SpotifyOriginalList(
+    itemDataList: List<Podcast> = podcasts,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -496,8 +492,8 @@ fun SpotifyOriginalList(
             modifier = Modifier
                 .padding(12.dp)
         ) {
-            items(count = 6) {
-                SpotifyOriginalCard()
+            items(podcasts) {
+                SpotifyOriginalCard(it)
             }
         }
     }
@@ -505,6 +501,7 @@ fun SpotifyOriginalList(
 
 @Composable
 fun SpotifyOriginalCard(
+    itemData: Podcast,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -515,14 +512,14 @@ fun SpotifyOriginalCard(
             modifier = Modifier
                 .size(150.dp)
         ) {
-            Box(
-                modifier = Modifier
-                    .background(Color.White)
-            )
+           Image(
+               painter = painterResource(id = itemData.image),
+               contentDescription =null
+           )
         }
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = "Society & Culture",
+            text = itemData.genre,
             style = MaterialTheme.typography.body2,
             color = MaterialTheme.colors.primary,
             maxLines = 1,
@@ -531,7 +528,7 @@ fun SpotifyOriginalCard(
                 .padding(start = 4.dp, bottom = 4.dp)
         )
         Text(
-            text = "The Mythpat Podcast",
+            text = itemData.title,
             style = MaterialTheme.typography.body1,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
@@ -539,7 +536,7 @@ fun SpotifyOriginalCard(
                 .padding(start = 4.dp, bottom = 4.dp)
         )
         Text(
-            text = "Show|Spotify Studios",
+            text = itemData.creator,
             style = MaterialTheme.typography.body2,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
@@ -607,16 +604,16 @@ fun ArtistCard(
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    navController: NavController
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = Modifier
             .background(MaterialTheme.colors.background)
             .fillMaxSize()
     ) {
         item {
             Spacer(modifier = Modifier.height(10.dp))
-            RecentPlaylistMiniCardGrid()
+            RecentPlaylistMiniCardGrid(navController)
         }
 
         item {
@@ -654,13 +651,10 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(10.dp))
             ArtistList(itemDataList = suggestedArtists)
         }
+        item {
+            Spacer(modifier = Modifier.height(80.dp))
+
+        }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    SpotifyCloneTheme {
-        HomeScreen()
-    }
-}

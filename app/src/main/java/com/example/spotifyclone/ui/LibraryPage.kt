@@ -3,6 +3,7 @@ package com.example.spotifyclone
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -54,12 +55,13 @@ fun Lib(
 @Composable
 fun LibraryScreen(){
     Column(
-        modifier = Modifier.verticalScroll(rememberScrollState())
+        modifier = Modifier.verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 10.dp),
+                .padding(horizontal = 12.dp, vertical = 5.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row() {
@@ -71,37 +73,47 @@ fun LibraryScreen(){
             Icon(imageVector = Icons.Outlined.AllInbox, contentDescription = null, Modifier.size(25.dp))
 
         }
-        List(text = "Like songs")
-        List(text = "The Good Life radio")
-        List(text = "Relaxing & Chill House..")
-        List(text = "F1 Radio")
-        List(text = "Horror Story 12 am")
-        List(text = "Virus 2062 with Ali...")
-        Spacer(modifier = Modifier.height(55.dp))
+        List(text = "Like songs", image = R.drawable.likedsongs)
+        List(text = "Sad Beats", R.drawable.sadbeats)
+        List(text = "Relaxing & Chill House..", R.drawable.relaxhits)
+        List(text = "On Repeat", R.drawable.onrepeat)
+        List(text = "Horror Story 12 am", R.drawable.haunted)
+        List(text = "EDM Sampling", R.drawable.edmsampling)
+        List(text = "Bollywood Butter", R.drawable.bollywoodbutter)
+        Spacer(modifier = Modifier.height(70.dp))
     }
 }
 
 @Composable
 fun List(
-    text : String
+    text : String,
+    @DrawableRes image: Int
 ){
 
     Row(
-        modifier = Modifier.padding(start = 5.dp, top = 1.dp, bottom = 1.dp)
+        modifier = Modifier.padding(start = 5.dp,)
     ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
                 .padding(0.dp),
             backgroundColor = MaterialTheme.colors.background,
         ) {
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(horizontal = 8.dp)
             ) {
-                Box(
+//                Box(
+//                    modifier = Modifier
+//                        .background(Color.White)
+//                        .height(height = 80.dp)
+//                        .width(width = 80.dp)
+//                        .aspectRatio(1f)
+//                )
+                Image(
+                    painter = painterResource(id = image),
+                    contentDescription = null,
                     modifier = Modifier
-                        .background(Color.White)
                         .height(height = 80.dp)
                         .width(width = 80.dp)
                         .aspectRatio(1f)
@@ -111,6 +123,7 @@ fun List(
                     Text(
                         text = text,
                         style = MaterialTheme.typography.h2,
+                        fontSize = 20.sp,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
@@ -239,7 +252,7 @@ fun LibBottomAppBar(
 
                     drawRect(
                         Brush.verticalGradient(
-                            0.01f to Color.Black.copy(0.5f),
+                            0.01f to Color.Black.copy(0.8f),
                             1F to Color.Black
                         )
                     )

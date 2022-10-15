@@ -104,3 +104,29 @@ class Songs {
         )
     }
 }
+
+class AlbumList {
+    object AlbumlistItems {
+        val albums = listOf(
+            Album(R.drawable._000mix, "2000s Mix",""),
+            Album(R.drawable.allout2010, "All Out 2010",""),
+            Album(R.drawable.alternativebeats, "Alternative Beats",""),
+            Album(R.drawable.asitwas, "As It Was","Harry Styles"),
+            Album(R.drawable.dailymix1, "Daily Mix 1",""),
+            Album(R.drawable.beastmode, "Beast Mode","")
+        )
+    }
+}
+
+class PodcastList {
+    object PodcastlistItems {
+        val podcasts = listOf(
+            Podcast(R.drawable.haunted, "Horror","Haunted","Show•G. K. Basu"),
+            Podcast(R.drawable.kimkardeshians, "Society & Culture","Kim Kardashian's Talks ","Show•Kim Kardashian"),
+            Podcast(R.drawable.mythsoftheworld,"Philosophy","Myths of the World","Show•Leman John"),
+            Podcast(R.drawable.spotifyex1, "Horror","Horror Stories in Hindi","Show•Mina Sharma"),
+            Podcast(R.drawable.haunted, "Horror","Haunted","Show•G. K. Basu"),
+            Podcast(R.drawable.kimkardeshians, "Society & Culture","Kim Kardashian's Talks ","Show•Kim Kardashian"),
+        )
+    }
+}
